@@ -8,7 +8,7 @@ e3 = str('van der Waals')
 
 
 
-def mathSolver(sel, num, MAXITER, r, t, p, a, b):
+def mathSolver(sel, r, t, p, a, b):
 #in this function, we have to define some parameters:
 # -sel corresponds to which equation will de solved(1 for Peng-Robinson, 2 for Redlich-Kwong, and 3
 # for van der Waals
@@ -19,7 +19,8 @@ def mathSolver(sel, num, MAXITER, r, t, p, a, b):
 # -p is the pressure
 # -a is the constant for atraction in real gases(depends on the parameterization of selected equation)
 # -b is the constant for repulsion in real gases(depends on the parameterization of selected equation)
-
+    num = 20
+    MAXITER = 1000
     if sel == 3:
         #eq = x**3 - (r * t/p + b)*x**2 + (a/p)*x - a*b/p
         x = var('x')
@@ -28,7 +29,7 @@ def mathSolver(sel, num, MAXITER, r, t, p, a, b):
         B = -(r*t/p)-b
         C = a/p
         D = - a*b/p
-        f = A*x**3 - B*x**2 + C*x - D
+        f = A*x**3 + B*x**2 + C*x + D
         print(f'f(x): {f}')
         d = diff(f, x)
         print(f'df/dx: {d}')
@@ -69,32 +70,17 @@ def mathSolver(sel, num, MAXITER, r, t, p, a, b):
         elif iteraction == MAXITER:
             iteraction = 0.75
 
-        for i in L:
-            xnewNewc = -xnew/100
-            if d.subs(x, xnewNewc) != 0:
-                xnewNewc = xnewNewc - (f.subs(x, xnewNewc) / d.subs(x, xnewNewc))
-                error = xnewNewc - xnew
-                xnew = -xnewNewc/100
-                iteraction = i
-            else:
-                iteraction = MAXITER + 1
-                break
-            if abs(error) <= 1e-6:
-                break
-        if iteraction > MAXITER:
-            iteraction = 0.25
-        elif iteraction == MAXITER:
-            iteraction = 0.75
+
 
     if sel == 2:
         #eq = x**3 - (r * t/p + b)*x**2 + (a/p)*x - a*b/p
         x = var('x')
         f = Function('f')
         A = 1
-        B = r*t/p
-        C = (b*r*t/p) - b**2 - (a/p*t**0.5)
-        D = a*b/t**0.5*p
-        f = A*x**3 - B*x**2 - C*x - D
+        B = - r*t/p
+        C = - (b*r*t/p) - b**2 + (a/(p*(t**0.5)))
+        D = - a*b/((t**0.5)*p)
+        f = A*x**3 + B*x**2 + C*x + D
         print(f'f(x): {f}')
         d = diff(f, x)
         print(f'df/dx: {d}')
@@ -158,9 +144,9 @@ def mathSolver(sel, num, MAXITER, r, t, p, a, b):
         x = var('x')
         f = Function('f')
         A = 1
-        B = b - r*t/p
-        C = (a-a*r*t*b-3*(b**2)*p)/p
-        D = ((b**3)*p+ r*t*(b**2) - a*b)/p
+        B = b - (r*t/p)
+        C = (a-(a*r*t*b)-(3*(b**2)*p))/p
+        D = (((b**3)*p)+ (r*t*(b**2)) - (a*b))/p
         f = A*x**3 + B*x**2 + C*x + D
         print(f'f(x): {f}')
         d = diff(f, x)
@@ -223,7 +209,11 @@ def mathSolver(sel, num, MAXITER, r, t, p, a, b):
     title = 'RESULTS'
     print(title.center(60))
     print('-*'*30)
-    print(f'The gas molar volume is {xnewNew}, the spurious root is {xnewNewc} and the liquid molar volume is {xnewNewb}')
+    print('Roots: %.4f and %.4f' %(xnewNew, xnewNewb))
+
+#mathSolver(1, 0.08206, 142.69, 35.00, 1.4915, 0.01981)
 
 
+#mathSolver(2, 0.08206, 142.69,35, 16.566, 0.022062)
 
+mathSolver(3, 0.08206, 142.69, 35, 1.3307, 0.031830)
