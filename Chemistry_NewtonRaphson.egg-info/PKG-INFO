@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: Chemistry-NewtonRaphson
+Version: 0.1.3
+Summary: Equation-State Solver with Newton-Raphson method
+Home-page: https://github.com/Leticia-maria/Chemistry_NewtonRaphson/archive/refs/tags/v_01.tar.gz
+Author: Leticia
+Author-email: leticiapequeno30@gmail.com
+License: UNKNOWN
+Description: ##chem
+        
+Keywords: Newton-Raphson
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown

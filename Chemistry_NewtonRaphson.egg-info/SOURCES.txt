@@ -1,0 +1,9 @@
+README.md
+setup.py
+Chemistry_NewtonRaphson/Chemistry_NewtonRaphson.py
+Chemistry_NewtonRaphson/__init__.py
+Chemistry_NewtonRaphson.egg-info/PKG-INFO
+Chemistry_NewtonRaphson.egg-info/SOURCES.txt
+Chemistry_NewtonRaphson.egg-info/dependency_links.txt
+Chemistry_NewtonRaphson.egg-info/requires.txt
+Chemistry_NewtonRaphson.egg-info/top_level.txt
